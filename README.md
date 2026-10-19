@@ -1,88 +1,69 @@
-# PROG5121-Part1
-# PROG5121 - POE Part 1 - User Registration & Login System
+# PROG5121-Part 2
+# PROG5121 
 
-## Project Description
-This is a Java application developed in NetBeans that allows a user to create an account and login. The system validates username, password complexity, and South African cell phone number using regex and provides appropriate success/failure messages as per the IIE brief.
+for part 2
+# QuickChat Application
 
-## Features
-1.  Create account with username, password, cell number
-2.  Validate username: must contain `_` and be <= 5 characters
-3.  Validate password: >= 8 chars, 1 capital, 1 number, 1 special char
-4.  Validate cell number: must contain international code +27 and 9 digits
-5.  Login with same username and password
-6.  Return welcome message if login successful
+## 📌 Project Overview
+QuickChat is a Java console-based messaging application developed as part of a programming task. It allows users to simulate sending, storing, and disregarding messages while validating user input, generating unique message IDs and hashes, and tracking the total number of messages sent.
 
-## Class Structure
+This project uses **Java**, **Maven**, and **JUnit 5** for automated unit testing, and implements **GitHub Actions (CI/CD)** to automatically run tests on every push.
 
-### Login Class - `com.mycompany.login.Login`
-Contains 6 main methods required by the brief:
+## ✨ Features
+*   **User Authentication Simulation:** Displays a welcome message upon successful login.
+*   **Menu System:** Allows users to navigate between sending messages, viewing "Coming Soon" features, or quitting the application.
+*   **Message Validation:**
+    *   Ensures message text does not exceed 250 characters.
+    *   Validates recipient cell numbers to ensure they contain an international code (e.g., `+27`).
+*   **Unique Identifiers:**
+    *   Auto-generates a random 10-digit `Message ID`.
+    *   Generates a custom `Message Hash` (e.g., `00:1:HITHANKS`) based on the ID, message number, and first/last words of the message.
+*   **Action Options:** Users can choose to Send, Disregard, or Store the message.
+*   **JSON Storage:** Simulates storing messages to a `messages.json` file for later retrieval.
+*   **Automated Testing:** Includes comprehensive unit tests using JUnit 5 to verify logic and edge cases.
 
-| Method | Functionality |
-|--------|---------------|
-| `checkUserName()` | Ensures username contains underscore and <=5 chars |
-| `checkPasswordComplexity()` | Ensures password meets complexity rules |
-| `checkCellPhoneNumber()` | Ensures cell has +27 and correct length |
-| `registerUser()` | Returns registration messages (success/fail) |
-| `loginUser()` | Verifies login details match stored details |
-| `returnLoginStatus()` | Returns welcome or failed login message |
+## 🛠️ Prerequisites
+To run this project locally, you will need:
+*   [Java JDK 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html) or higher.
+*   [Apache NetBeans IDE](https://netbeans.apache.org/) (or any IDE that supports Maven, like IntelliJ or Eclipse).
+*   [Git](https://git-scm.com/) installed on your machine.
 
-## Validation Rules & Messages
+## 🚀 How to Run the Application (NetBeans)
+1. Open NetBeans and go to **File > Open Project**.
+2. Navigate to the folder containing this project and open it.
+3. In the Projects window, expand the `Source Packages` > `quickchat` folder.
+4. Right-click on `QuickChat.java` and select **Run File** (or press `Shift + F6`).
+5. Follow the on-screen prompts in the NetBeans Output console.
 
-**Username:**
-- True: `Username successfully captured.`
-- False: `Username is not correctly formatted; please ensure that your username contains an underscore and is no more than five characters in length.`
+## 🧪 Running the Unit Tests
+The project includes a `MessageTest.java` file containing JUnit 5 tests to ensure the application meets the required specifications.
+1. In NetBeans, right-click on the `QuickChat` project folder.
+2. Select **Test** (or press `Alt + F6`).
+3. The console will show the test results. A green bar indicates all tests have passed successfully.
 
-**Password:**
-- True: `Password successfully captured.`
-- False: `Password is not correctly formatted; please ensure that the password contains at least eight characters, a capital letter, a number, and a special character.`
+## 🔄 CI/CD Pipeline (GitHub Actions)
+This project uses GitHub Actions to implement Continuous Integration. 
+Every time code is pushed to the `main` or `master` branch, the `.github/workflows/maven.yml` file triggers a virtual machine to:
+1. Check out the code.
+2. Set up Java JDK 17.
+3. Run `mvn clean test` to automatically compile the code and run the JUnit tests.
+4. If any test fails, the Action will flag an error, preventing broken code from being merged.
 
-**Cell Phone:**
-- True: `Cell phone number successfully added.`
-- False: `Cell phone number incorrectly formatted or does not contain international code.`
-
-**Login:**
-- True: `Welcome <first name>, <last name> it is great to see you again.`
-- False: `Username or password incorrect, please try again.`
-
-## How To Run
-
-### Requirements
-- NetBeans IDE 18+
-- Java JDK 17+
-- JUnit 5
-
-### Steps
-1. Open NetBeans > New Project > Java with Maven > Java Application
-2. Package name: `com.mycompany.login`
-3. Create class `Login.java` and paste code
-4. Right-click Test Packages > New > JUnit Test > `LoginTest.java`
-5. Right-click Project > Test
-6. All tests should be GREEN
-
-## Unit Tests - Test Data Used (as per brief)
-
-| Test | Test Data | Expected Return |
-|------|-----------|-----------------|
-| Username Correct | `kyl_1` | True |
-| Username Incorrect | `kyle!!!!!!!` | False + error message |
-| Password Correct | `Ch&sec@ke99!` | True |
-| Password Incorrect | `password` | False + error message |
-| Cell Correct | `+27838968976` | True |
-| Cell Incorrect | `08966553` | False + error message |
-| Login Success | `kyl_1` / `Ch&sec@ke99!` | True |
-| Login Failed | `kyl_1` / `wrong` | False |
-
-## Regex Reference
-Cell phone validation regex adapted from:
-StackOverflow - South African Phone Number Regex
-https://stackoverflow.com/questions/11518035/regex-for-south-african-phone-number
-
-Regex used: `^\+27[0-9]{9}$` - checks for +27 followed by 9 digits.
-
-## Author
-Student Name: [Your Name]
-Student Number: [Your Number]
-Module: PROG5121 - 2026
-
-## Video Link
-[Add your YouTube unlisted link for Part 3 here]
+## 📂 Project Structure
+```text
+QuickChat/
+├── .github/
+│   └── workflows/
+│       └── maven.yml          # GitHub Actions CI/CD configuration
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── quickchat/
+│   │           ├── Message.java     # Core logic, validation, and data management
+│   │           └── QuickChat.java   # Main application class, UI, and menu loop
+│   └── test/
+│       └── java/
+│           └── quickchat/
+│               └── MessageTest.java # JUnit 5 Unit Tests
+├── pom.xml                    # Maven dependencies (JUnit)
+└── README.md                  # Project documentation
